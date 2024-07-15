@@ -6,6 +6,7 @@
         :unique-opened="true"
         active-text-color="dark"
         :collapse-transition="false"
+        :collapse="false"
         mode="vertical"
         router
       >
@@ -39,5 +40,6 @@ const activeMenu = computed(() => {
   height: calc(100vh - 60px);
   background-color: #ddd;
   overflow: auto;
+  flex-shrink: 0;
 }
 </style>
