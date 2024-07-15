@@ -9,6 +9,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import './permission'
 import CommonTable from '@/components/CommonTable'
 import Pagination from '@/components/Pagination'
+import 'amfe-flexible'
+import './utils/rem'
 const app = createApp(App)
 app.component('CommonTable', CommonTable)
 app.component('Pagination', Pagination)
