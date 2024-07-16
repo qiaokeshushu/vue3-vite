@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "amfe-flexible": "^2.2.1",
+    "axios": "^1.7.2",
     "element-plus": "^2.7.6",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",

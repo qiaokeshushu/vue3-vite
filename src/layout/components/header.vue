@@ -1,6 +1,5 @@
 <template>
   <div class="hearder">
-    {{ isCollapse }}
     <el-radio-group v-model="isCollapse">
       <el-radio-button :value="false">expand</el-radio-button>
       <el-radio-button :value="true">collapse</el-radio-button>

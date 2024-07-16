@@ -5,8 +5,8 @@
         :default-active="activeMenu"
         :unique-opened="true"
         active-text-color="dark"
-        :collapse-transition="false"
-        :collapse="false"
+        collapse-transition
+        :collapse="isCollapse"
         mode="vertical"
         router
       >
@@ -23,6 +23,10 @@
 <script setup>
 import SidebarItem from "./sidebarItem";
 import { constantRoutes } from "@/router";
+import useGlobaStore from '@/stores/globa'
+import { storeToRefs } from 'pinia'
+const globalStore = useGlobaStore();
+const {isCollapse} = storeToRefs(globalStore);
 const route = useRoute();
 const sidebarRouters = computed(() => constantRoutes);
 const activeMenu = computed(() => {
@@ -36,10 +40,37 @@ const activeMenu = computed(() => {
 </script>
 <style lang="scss" scope>
 .side-bar{
-  width: 200px;
   height: calc(100vh - 60px);
-  background-color: #ddd;
+  background-color: #545c64;
   overflow: auto;
   flex-shrink: 0;
+}
+.el-menu{
+  background-color: #545c64;
+  border:none;
+  .menu-title{
+    color:#fff;
+  }
+  .el-icon{
+    color:#fff;
+  }
+  .el-menu-item:hover {
+    background-color: #000;
+  }
+  .el-sub-menu__title:hover{
+    background-color: #000;
+  }
+  .el-menu-item{
+    .el-icon{
+      color:#fff;
+    }
+    &.is-active{
+      background-color: #000;
+    }
+  }
+}
+.el-menu:not(.el-menu--collapse) {
+  width: 200px;
+  height: 100%;
 }
 </style>
