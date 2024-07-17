@@ -3,6 +3,8 @@ import {ElMessage} from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
+import { storeToRefs } from 'pinia'
+import globalStore from '@/stores/globa'
 
 NProgress.configure({showSpinner: false});
 

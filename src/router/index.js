@@ -9,13 +9,13 @@ export const constantRoutes = [
   {
     path: '/dashbord',
     name: 'dashbord',
-    component: () => import('@/layout/index.vue'),
+    component: () => import('@/layout/index'),
     meta:{title: '首页', icon: 'House', affix: true },
     children: [
       {
         path: '/dashbord',
         name: 'dashbord',
-        component: () => import('@/views/dashbord.vue'),
+        component: () => import('@/views/dashbord'),
         meta:{title: '首页', icon: 'House', affix: true },
       }
     ]
@@ -23,13 +23,13 @@ export const constantRoutes = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('@/layout/index.vue'),
+    component: () => import('@/layout/index'),
     meta:{title: '关于', icon: 'ChatDotRound', affix: true },
     children: [
       {
         path: '/about',
         name: 'about',
-        component: () => import('@/views/AboutView.vue'),
+        component: () => import('@/views/AboutView'),
         meta:{title: '关于', icon: 'dashboard', affix: true },
       },
     ]
@@ -37,31 +37,31 @@ export const constantRoutes = [
   {
     path: '/category',
     name: 'category',
-    component: () => import('@/layout/index.vue'),
+    component: () => import('@/layout/index'),
     meta:{title: '分类', icon: 'Document', affix: true },
     children: [
       {
         path: 'goods',
         name: 'good',
-        component: () => import('@/views/AboutView.vue'),
+        component: () => import('@/views/goods'),
         meta:{title: '商品分类', icon: '', affix: true },
       },
       {
         path: 'menu',
         name: 'menu',
-        component: () => import('@/views/AboutView.vue'),
+        component: () => import('@/components/index'),
         meta: { title: '菜单分类', icon: '', affix: true },
         children: [
           {
             path: 'play',
             name: 'play',
-            component: () => import('@/views/AboutView.vue'),
+            component: () => import('@/views/play'),
             meta:{title: '运动分类', icon: '', affix: true },
           },
           {
             path: 'menuItem',
             name: 'menuItem',
-            component: () => import('@/views/AboutView.vue'),
+            component: () => import('@/views/foods'),
             meta:{title: '饮食分类', icon: '', affix: true },
           },
         ]

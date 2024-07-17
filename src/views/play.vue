@@ -1,13 +1,13 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>This is an play page</h1>
   </div>
 </template>
 <script setup>
 import {register,login} from '@/api'
 onMounted(() => {
   console.log(import.meta.env.VITE_APP_BASE_API)
-  console.log('about重新加载');
+  console.log('play重新加载');
   registerSys()
   loginSys()
 })
@@ -32,8 +32,5 @@ const loginSys = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    h1{
-      font-size: 28px;
-    }
   }
 </style>
