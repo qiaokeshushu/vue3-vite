@@ -3,6 +3,7 @@
     <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
+        :default-openeds="[activeMenu]"
         :unique-opened="true"
         active-text-color="dark"
         collapse-transition
