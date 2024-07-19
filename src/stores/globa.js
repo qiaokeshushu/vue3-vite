@@ -8,7 +8,9 @@ export default defineStore('globa',  {
       routeList: [{
         fullpath: "/dashbord",
         title:'首页',
-      }]
+      }],
+      cacheNames: [],
+      cmpNames:{}
     }
   },
   actions: {

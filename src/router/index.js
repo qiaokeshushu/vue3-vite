@@ -30,7 +30,7 @@ export const constantRoutes = [
         path: '/about',
         name: 'about',
         component: () => import('@/views/AboutView'),
-        meta:{title: '关于', icon: 'dashboard', affix: true },
+        meta:{title: '关于', icon: 'dashboard', keepAlive: false },
       },
     ]
   },
@@ -44,25 +44,25 @@ export const constantRoutes = [
         path: 'goods',
         name: 'good',
         component: () => import('@/views/goods'),
-        meta:{title: '商品分类', icon: '', affix: true },
+        meta:{title: '商品分类', icon: '', keepAlive: true },
       },
       {
         path: 'menu',
         name: 'menu',
-        component: () => import('@/components/index'),
-        meta: { title: '菜单分类', icon: '', affix: true },
+        meta: { title: '菜单分类', icon: '', keepAlive: true },
+        // component: () => import('@/components/index'),
         children: [
           {
             path: 'play',
             name: 'play',
             component: () => import('@/views/play'),
-            meta:{title: '运动分类', icon: '', affix: true },
+            meta:{title: '运动分类', icon: '', keepAlive: true },
           },
           {
             path: 'menuItem',
             name: 'menuItem',
             component: () => import('@/views/foods'),
-            meta:{title: '饮食分类', icon: '', affix: true },
+            meta:{title: '饮食分类', icon: '', keepAlive: true },
           },
         ]
       },

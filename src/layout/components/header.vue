@@ -1,9 +1,5 @@
 <template>
   <div class="hearder">
-    <el-radio-group v-model="isCollapse">
-      <el-radio-button :value="false">expand</el-radio-button>
-      <el-radio-button :value="true">collapse</el-radio-button>
-    </el-radio-group>
     <div>这是头部</div>
   </div>
 </template>

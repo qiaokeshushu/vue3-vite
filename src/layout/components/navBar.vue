@@ -19,6 +19,10 @@
         />
       </el-menu>
     </el-scrollbar>
+    <div class="side-bar-collapse">
+      <el-icon v-if="!isCollapse" @click="close"><Fold /></el-icon>
+      <el-icon v-else @click="open"><Expand /></el-icon>
+    </div>
   </div>
 </template>
 <script setup>
@@ -32,12 +36,17 @@ const route = useRoute();
 const sidebarRouters = computed(() => constantRoutes);
 const activeMenu = computed(() => {
   const { meta, path } = route;
-  // if set path, the sidebar will highlight the path you set
   if (meta.activeMenu) {
     return meta.activeMenu;
   }
   return path;
 });
+const close = () => {
+  globalStore.setCollapse(true);
+}
+const open = () => {
+  globalStore.setCollapse(false);
+}
 </script>
 <style lang="scss" scope>
 .side-bar{
@@ -45,6 +54,15 @@ const activeMenu = computed(() => {
   background-color: #545c64;
   overflow: auto;
   flex-shrink: 0;
+  position: relative;
+  .side-bar-collapse{
+    position: absolute;
+    right:0px;
+    top: 0px;
+    font-size: 20px;
+    cursor: pointer;
+    color:#fff
+  }
 }
 .el-menu{
   background-color: #545c64;

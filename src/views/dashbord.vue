@@ -6,8 +6,7 @@
 </template>
 <script setup>
 const msg = ref('Hello Vue 3 + Vite')
-const route = useRoute()
-console.log(route);
+console.log(import.meta.env.VITE_APP_BASE_API)
 </script>
 <style>
   .dashbord {

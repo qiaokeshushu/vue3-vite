@@ -6,10 +6,12 @@
 <script setup>
 import {register,login} from '@/api'
 onMounted(() => {
-  console.log(import.meta.env.VITE_APP_BASE_API)
   console.log('foods重新加载');
   registerSys()
   loginSys()
+})
+onBeforeUnmount(() => {
+  console.log('foods销毁');
 })
 const registerSys = () => {
   register({ name: 1, age: 24 }).then((res) => {

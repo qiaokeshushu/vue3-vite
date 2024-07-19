@@ -5,11 +5,12 @@ import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import { storeToRefs } from 'pinia'
 import globalStore from '@/stores/globa'
-
 NProgress.configure({showSpinner: false});
 
 
 router.beforeEach((to, from, next) => {
+ 
+
   // if (getToken()) {
   //   if (to.path === '/login') {
   //     next()

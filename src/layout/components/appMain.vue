@@ -3,18 +3,33 @@
   <TagViews></TagViews>
   <Breadcrumb></Breadcrumb>
   <section class="contanier">
-    <index></index>
+    {{ cacheNames }}
+    <router-view v-slot="{ Component, route }">
+      <!-- <transition name="fade-transform" mode="out-in">
+          <component :is="Component" :key="route.path" />
+      </transition> -->
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive :include="cacheNames"> 
+            <component :is="Component" :key="route.path"/>
+        </keep-alive>
+      </transition>
+    </router-view>
+    <!-- <router-view v-slot="{ Component, route }">
+      <component :is="Component" :key="route.path" v-if="!titles.includes(route.meta.title)"/>
+      <KeepAlive > 
+          <component :is="Component" :key="route.path" v-if="titles.includes(route.meta.title)"/>
+      </KeepAlive>
+    </router-view> -->
   </section>
 </div>
 </template>
 <script setup>
 import TagViews from './tagViews.vue'
 import Breadcrumb from './breadcrumb'
-import index from '@/components/index'
 import globalStore from '@/stores/globa'
 import { storeToRefs } from 'pinia'
 const global = globalStore()
-const { routeList } = storeToRefs(global)
+const { routeList,cacheNames } = storeToRefs(global)
 const titles = computed(() => {
   return routeList.value.map(item => item.title)
 })

@@ -2,13 +2,13 @@
   <div v-if="!item.hidden">
     <template v-if="(item.children && item.children.length ===1 ) || !!!item.children">
       <el-menu-item :index="basePath" :class="{ 'submenu-title-noDropdown': !isNest }">
-        <el-icon ><component :is="item.meta.icon"></component></el-icon>
+        <!-- <el-icon ><component :is="item.meta.icon"></component></el-icon> -->
         <template #title><span class="menu-title" :title="hasTitle(item.meta.title)">{{ item.meta.title }}</span></template>
       </el-menu-item>
     </template>
     <el-sub-menu v-else ref="subMenu" popper-append-to-body :index="basePath">
       <template v-if="item.meta" #title>
-        <el-icon><component :is="item.meta.icon"></component></el-icon>
+        <!-- <el-icon><component :is="item.meta.icon"></component></el-icon> -->
         <span class="menu-title" :title="hasTitle(item.meta.title)">{{ item.meta.title }}</span>
       </template>
       <sidebar-item
