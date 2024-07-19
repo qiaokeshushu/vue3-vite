@@ -19,11 +19,7 @@ const activeMenu = computed(() => {
   return meta.title;
 });
 const checkRouteComponentName= (name, file)=> {
-    if (cmpNames.value[name]) {
-      if (cmpNames.value[name] !== file) {
-        console.warn(`${file} 与${cmpNames.value[name]} 组件名称重复： ${name}`)
-      }
-    } else {
+    if (!cmpNames.value[name]) {
       cmpNames.value[name] = file
     }
 }
@@ -38,19 +34,15 @@ const  addCache = (componentName)=> {
   cacheNames.value.push(componentName)
 }
 watch(() => route, (_route) => {
-  console.log(_route);
   _route.matched.forEach((routeMatch) => {
     const componentDef = routeMatch.components?.default
     const componentName = componentDef?.name || componentDef?.__name
     const file = componentDef?.__file
     checkRouteComponentName(componentName, file)
     if (routeMatch.meta.keepAlive) {
-        if (!componentName) {
-          console.warn(`${routeMatch.path} 路由的组件名称name为空`)
-          return
-        }
-        addCache(componentName)
-      }
+      if (!componentName) return;
+      addCache(componentName)
+    }
   })
   const titles = routeList.value.map(item => item.title)
   if (!titles.includes(_route.meta.title)) {
