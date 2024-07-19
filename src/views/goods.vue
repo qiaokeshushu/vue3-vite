@@ -13,6 +13,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
   console.log('goods销毁');
 })
+onActivated(() => {
+  console.log('goods挂载');
+})
 const registerSys = () => {
   register({ name: 1, age: 24 }).then((res) => {
     

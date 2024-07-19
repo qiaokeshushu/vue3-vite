@@ -1,6 +1,6 @@
 <template>
   <div class="side-bar">
-    <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
+    <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
         :default-openeds="[activeMenu]"

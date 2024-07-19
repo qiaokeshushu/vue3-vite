@@ -3,23 +3,14 @@
   <TagViews></TagViews>
   <Breadcrumb></Breadcrumb>
   <section class="contanier">
-    {{ cacheNames }}
+    已缓存页面：{{ cacheNames }}
     <router-view v-slot="{ Component, route }">
-      <!-- <transition name="fade-transform" mode="out-in">
-          <component :is="Component" :key="route.path" />
-      </transition> -->
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cacheNames"> 
             <component :is="Component" :key="route.path"/>
         </keep-alive>
       </transition>
     </router-view>
-    <!-- <router-view v-slot="{ Component, route }">
-      <component :is="Component" :key="route.path" v-if="!titles.includes(route.meta.title)"/>
-      <KeepAlive > 
-          <component :is="Component" :key="route.path" v-if="titles.includes(route.meta.title)"/>
-      </KeepAlive>
-    </router-view> -->
   </section>
 </div>
 </template>

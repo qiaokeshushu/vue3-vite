@@ -10,7 +10,7 @@ export default defineStore('globa',  {
         title:'首页',
       }],
       cacheNames: [],
-      cmpNames:{}
+      componentNames:{}
     }
   },
   actions: {

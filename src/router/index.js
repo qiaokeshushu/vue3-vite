@@ -3,20 +3,20 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 export const constantRoutes = [
   {
     path: '/',
-    redirect: '/dashbord',
+    redirect: '/dashboard',
     hidden:true
   },
   {
-    path: '/dashbord',
-    name: 'dashbord',
+    path: '/dashboard',
+    name: 'dashboard',
     component: () => import('@/layout/index'),
-    meta:{title: '首页', icon: 'House', affix: true },
+    meta:{title: '首页', icon: 'House',  },
     children: [
       {
-        path: '/dashbord',
-        name: 'dashbord',
+        path: '/dashboard',
+        name: 'dashboard',
         component: () => import('@/views/dashbord'),
-        meta:{title: '首页', icon: 'House', affix: true },
+        meta:{title: '首页', icon: 'House', keepAlive: true },
       }
     ]
   },
@@ -24,7 +24,7 @@ export const constantRoutes = [
     path: '/about',
     name: 'about',
     component: () => import('@/layout/index'),
-    meta:{title: '关于', icon: 'ChatDotRound', affix: true },
+    meta:{title: '关于', icon: 'ChatDotRound'},
     children: [
       {
         path: '/about',
@@ -50,7 +50,6 @@ export const constantRoutes = [
         path: 'menu',
         name: 'menu',
         meta: { title: '菜单分类', icon: '', keepAlive: true },
-        // component: () => import('@/components/index'),
         children: [
           {
             path: 'play',
@@ -72,7 +71,7 @@ export const constantRoutes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {

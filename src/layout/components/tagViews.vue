@@ -13,14 +13,19 @@ import globalStore from '@/stores/globa'
 const route = useRoute()
 const router = useRouter()
 const global = globalStore()
-const { routeList,cacheNames,cmpNames } = storeToRefs(global)
+const { routeList,cacheNames,componentNames } = storeToRefs(global)
 const activeMenu = computed(() => {
   const { meta } = route;
   return meta.title;
 });
+// 检测路由组件名称是否重复（组件重名会缓存到不该缓存的组件，而且不容易排查问题，所以开发环境时检测重名）
 const checkRouteComponentName= (name, file)=> {
-    if (!cmpNames.value[name]) {
-      cmpNames.value[name] = file
+  if (componentNames.value[name]) {
+      if (componentNames.value[name] !== file) {
+        console.warn(`${file} 与${componentNames.value[name]} 组件名称重复： ${name}`)
+      }
+    } else {
+      componentNames.value[name] = file
     }
 }
   // 添加缓存的路由组件
@@ -29,7 +34,6 @@ const  addCache = (componentName)=> {
     componentName.forEach(addCache)
     return
   }
-
   if (!componentName || cacheNames.value.includes(componentName)) return
   cacheNames.value.push(componentName)
 }
