@@ -35,7 +35,7 @@ const titles = computed(() => {
     height: calc(100vh - 190px);
     position: relative;
     padding:20px;
-    overflow: auto;
+    overflow: hidden;
   }
 }
 </style>

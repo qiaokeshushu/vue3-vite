@@ -2,13 +2,13 @@
   <div v-if="!item.hidden">
     <template v-if="(item.children && item.children.length ===1 ) || !!!item.children">
       <el-menu-item :index="basePath">
-        <el-icon v-if="item.meta.icon"><component :is="item.meta.icon"></component></el-icon>
-        <template #title><span class="menu-title" :title="hasTitle(item.meta.title)">{{ item.meta.title }}</span></template>
+        <el-icon v-if="item?.meta?.icon"><component :is="item.meta.icon"></component></el-icon>
+        <template #title><span class="menu-title" :title="hasTitle(item?.meta?.title)">{{ item?.meta?.title }}</span></template>
       </el-menu-item>
     </template>
     <el-sub-menu v-else ref="subMenu" popper-append-to-body :index="basePath">
-      <template v-if="item.meta" #title>
-        <el-icon v-if="item.meta.icon"><component :is="item.meta.icon"></component></el-icon>
+      <template v-if="item?.meta" #title>
+        <el-icon v-if="item?.meta?.icon"><component :is="item.meta.icon"></component></el-icon>
         <span class="menu-title" :title="hasTitle(item.meta.title)">{{ item.meta.title }}</span>
       </template>
       <sidebar-item
@@ -43,7 +43,7 @@ function getPath(url){
   return `${props.basePath}/${url}`;
 }
 function hasTitle(title){
-  if (title.length > 5) {
+  if (title && title.length > 5) {
     return title;
   } else {
     return "";

@@ -66,6 +66,19 @@ export const constantRoutes = [
         ]
       },
     ]
+  },
+  {
+    path: '/empty',
+    name: 'empty',
+    component: () => import('@/layout/index'),
+    hidden:true,
+    children: [
+      {
+        path: '/empty',
+        name: 'empty',
+        component: () => import('@/views/empty'),
+      },
+    ]
   }
 ]
 const router = createRouter({

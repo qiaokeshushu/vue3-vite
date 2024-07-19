@@ -1,9 +1,25 @@
 <template>
   <div class="tag-views">
-    <div class="item" :class="{active:item.title ===activeMenu}" closable v-for="(item,i) in routeList" :key="i" @click="changeRoute(item)">
+    <div class="item" 
+      v-for="(item,i) in routeList" 
+      :key="item.fullPath" 
+      :class="{active:item.title ===activeMenu}" 
+      @click="changeRoute(item)">
       <span class="item-name">{{ item.title }}</span>
-      <el-icon v-if="item.title!=='首页'"><Close @click.stop="closeTag(item,i)"/></el-icon>
+      <el-icon v-if="item.title!=='首页'">
+        <Close @click.stop="closeTag(item,i)" @contextmenu.prevent.native="openContextMenu"/>
+      </el-icon>
+      <div class="context-menu"
+        v-if="menuVisible && item.title ===activeMenu" 
+        :style="menuPosition">
+        <ul>
+          <li @click.stop="refresh(item)">刷新</li>
+          <li @click="closeOther(item)">关闭其他</li>
+          <li @click="closeAll">关闭全部</li>
+        </ul>
+      </div>
     </div>
+    
   </div>
 </template>
 
@@ -13,6 +29,13 @@ import globalStore from '@/stores/globa'
 const route = useRoute()
 const router = useRouter()
 const global = globalStore()
+const menuVisible = ref(false)
+const menuPosition = reactive(
+  {
+    top: 0,
+    left: 0
+  }
+) 
 const { routeList,cacheNames,componentNames } = storeToRefs(global)
 const activeMenu = computed(() => {
   const { meta } = route;
@@ -47,14 +70,19 @@ watch(() => route, (_route) => {
       if (!componentName) return;
       addCache(componentName)
     }
+    if (componentName && componentName !== 'index' && componentName !== 'empty') {
+      const titles = routeList.value.map(item => item.title)
+      if (!titles.includes(routeMatch.meta.title)) {
+        routeList.value.push({
+          fullpath: _route.fullPath,
+          title: _route.meta.title,
+          componentName,
+          keepAlive: routeMatch.meta.keepAlive
+        })
+      }
+    }
   })
-  const titles = routeList.value.map(item => item.title)
-  if (!titles.includes(_route.meta.title)) {
-    routeList.value.push({
-      fullpath: _route.fullPath,
-      title: _route.meta.title,
-    })
-  }
+  
 },{
   immediate: true,
   deep: true
@@ -65,11 +93,62 @@ const changeRoute = (item) => {
   router.push(item.fullpath)
 }
 const closeTag = (item, i) => { 
-  routeList.value.splice(i, 1)
-  cacheNames.value.splice(i-1,1)
+  const list =routeList.value.filter(item => item.keepAlive)
+  const index = list.findIndex(itm => item.componentName === itm.componentName)
+  if (index !== -1) {
+    cacheNames.value.splice(index,1)
+  }
+  setTimeout(() => {
+    routeList.value.splice(i, 1)
+  }, 10);
   if (item.title !== activeMenu.value) return;
   router.push(routeList.value[i-1].fullpath)
 }
+const openContextMenu = (event) => {
+  menuVisible.value = true
+  menuPosition.top = `${event.clientY}px`;
+  menuPosition.left = `${event.clientX}px`;
+}
+const hideMenuVisible = () => {
+  menuVisible.value = false
+}
+const closeAll = () => {
+  routeList.value = [routeList.value[0]]
+  cacheNames.value = [cacheNames.value[0]]
+  setTimeout(() => {
+    router.push(routeList.value[0].fullpath)
+  }, 10)
+  hideMenuVisible()
+}
+const refresh = async (item) => {
+  await router.push('/empty')
+  const index = cacheNames.value.indexOf(item.componentName)
+  if (index !== -1) {
+    cacheNames.value.splice(index,1)
+  }
+  router.go(-1)
+  hideMenuVisible()
+}
+const closeOther = (item) => {
+  const index = cacheNames.value.indexOf(item.componentName)
+  const tagIndex = routeList.value.findIndex(itm => itm.componentName === item.componentName)
+  cacheNames.value = index !== -1 ?[
+      cacheNames.value[0],
+      cacheNames.value[index] 
+    ] :[cacheNames.value[0]]
+  routeList.value = [
+    routeList.value[0],
+    routeList.value[tagIndex]
+  ]
+  hideMenuVisible()
+}
+
+onMounted(() => {
+  window.addEventListener('click', hideMenuVisible)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('click', hideMenuVisible)
+})
 </script>
 <style lang='scss' scoped>
 .tag-views{
@@ -98,6 +177,18 @@ const closeTag = (item, i) => {
   }
   .el-icon{
     font-size: 14px;
+  }
+}
+.context-menu{
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+  li{
+    padding: 5px 0;
+    cursor: pointer;
+    color:#000
   }
 }
 </style>

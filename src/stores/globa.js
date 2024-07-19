@@ -6,10 +6,12 @@ export default defineStore('globa',  {
     return {
       isCollapse: false,
       routeList: [{
-        fullpath: "/dashbord",
-        title:'首页',
+        fullpath: "/dashboard",
+        title: '首页',
+        componentName: "dashboard",
+        keepAlive:true
       }],
-      cacheNames: [],
+      cacheNames: ['dashbord'],
       componentNames:{}
     }
   },
